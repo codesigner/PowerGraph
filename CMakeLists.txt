@@ -148,7 +148,7 @@ install(CODE "execute_process(COMMAND ./scripts/install_deps.sh
 # https://bitbucket.org/eigen/eigen/
 ExternalProject_Add(eigen
   PREFIX ${GraphLab_SOURCE_DIR}/deps/eigen
-  URL http://bitbucket.org/eigen/eigen/get/3.1.2.tar.bz2
+  URL http://192.168.10.252:9000/eigen-3.1.2.tar.bz2
   URL_MD5 e9c081360dde5e7dcb8eba3c8430fde2
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
@@ -165,7 +165,7 @@ endmacro(requires_eigen)
 # libbz  =================================================================
 ExternalProject_Add(libbz2
   PREFIX ${GraphLab_SOURCE_DIR}/deps/libbz2
-  URL http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+  URL "http://192.168.10.252:9000/bzip2-1.0.6.tar.gz"
   URL_MD5 00b516f4704d4a7cb50a1d97e6e8e15b
   INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local
   CONFIGURE_COMMAND ""
@@ -183,7 +183,7 @@ ExternalProject_Add(libbz2
 # unordered containers.
 ExternalProject_Add(boost
   PREFIX ${GraphLab_SOURCE_DIR}/deps/boost
-  URL "http://tcpdiag.dl.sourceforge.net/project/boost/boost/1.53.0/boost_1_53_0.tar.gz" 
+  URL "http://192.168.10.252:9000/boost_1_53_0.tar.gz"
   URL_MD5 57a9e2047c0f511c4dfcf00eb5eb2fbb
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND
@@ -238,8 +238,8 @@ if(NOT NO_TCMALLOC)
     PREFIX ${GraphLab_SOURCE_DIR}/deps/tcmalloc
     # Some users can't access domain googlecode.com ,This is a spare URL
     # URL http://sourceforge.jp/projects/sfnet_gperftools.mirror/downloads/gperftools-2.0.tar.gz
-    URL http://gperftools.googlecode.com/files/gperftools-2.0.tar.gz
-    URL_MD5 13f6e8961bc6a26749783137995786b6
+    URL http://192.168.10.252:9000/gperftools-2.0.tar.gz
+    URL_MD5 2b412c4c8cf20b226bfc1d062ad25c7c
     PATCH_COMMAND patch -N -p0 -i ${GraphLab_SOURCE_DIR}/patches/tcmalloc.patch || true
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --enable-frame-pointers --prefix=<INSTALL_DIR> ${tcmalloc_shared}
     INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local)
@@ -308,14 +308,14 @@ endif()
 # endmacro(requires_imagemagick)
 
 # OpenCV =================================================================
-ExternalProject_Add(opencv
-  PREFIX ${GraphLab_SOURCE_DIR}/deps/opencv
-  URL http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.9/opencv-2.4.9.zip/download
-  # URL_MD5 010b63a2542c4ec4918c8cb431c00356
-  PATCH_COMMAND patch -N -p0 cmake/OpenCVModule.cmake -i ${GraphLab_SOURCE_DIR}/patches/opencv_apple_rpath.patch || true
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-  -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_PACKAGE=OFF -DBUILD_EXAMPLES=OFF -DOPENCV_BUILD_3RDPARTY_LIBS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=OFF -DBUILD_JPEG=ON -DCMAKE_INCLUDE_PATH=${GraphLab_SOURCE_DIR}/deps/local/include -DWITH_CUBLAS=OFF -DWITH_1394=OFF -DWITH_AVFOUNDATION=OFF -DWITH_CUDA=OFF -DWITH_CUFFT=OFF -DWITH_FFMPEG=OFF -DWITH_GSTREAMER=OFF -DWITH_GTK=OFF -DWITH_QUICKTIME=OFF -DWITH_VIDEOINPUT=OFF -DWITH_XIMEA=OFF -DWITH_XINE=OFF -DWITH_V4L=OFF -DWITH_UNICAP=OFF -DWITH_QT=OFF -DWITH_JASPER=NO -DWITH_TIFF=NO -DWITH_OPENCL=OFF -DCMAKE_LIBRARY_PATH=${GraphLab_SOURCE_DIR}/deps/local/lib
-  INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local)
+# ExternalProject_Add(opencv
+#   PREFIX ${GraphLab_SOURCE_DIR}/deps/opencv
+#   URL http://192.168.10.252:9000/opencv-4.8.0.zip
+#   # URL_MD5 010b63a2542c4ec4918c8cb431c00356
+#   PATCH_COMMAND patch -N -p0 cmake/OpenCVModule.cmake -i ${GraphLab_SOURCE_DIR}/patches/opencv_apple_rpath.patch || true
+#   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+#   -DBUILD_TESTS=OFF -DBUILD_opencv_gapi=false -DBUILD_PERF_TESTS=OFF -DBUILD_PACKAGE=OFF -DBUILD_EXAMPLES=OFF -DOPENCV_BUILD_3RDPARTY_LIBS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=OFF -DBUILD_JPEG=ON -DCMAKE_INCLUDE_PATH=${GraphLab_SOURCE_DIR}/deps/local/include -DWITH_CUBLAS=OFF -DWITH_1394=OFF -DWITH_AVFOUNDATION=OFF -DWITH_CUDA=OFF -DWITH_CUFFT=OFF -DWITH_FFMPEG=OFF -DWITH_GSTREAMER=OFF -DWITH_GTK=OFF -DWITH_QUICKTIME=OFF -DWITH_VIDEOINPUT=OFF -DWITH_XIMEA=OFF -DWITH_XINE=OFF -DWITH_V4L=OFF -DWITH_UNICAP=OFF -DWITH_QT=OFF -DWITH_JASPER=NO -DWITH_TIFF=NO -DWITH_OPENCL=OFF -DCMAKE_LIBRARY_PATH=${GraphLab_SOURCE_DIR}/deps/local/lib
+#   INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local)
 
 # add_dependencies(opencv eigen)
 
@@ -347,7 +347,7 @@ endmacro(requires_opencv)
 if (APPLE)
   ExternalProject_Add(libevent
     PREFIX ${GraphLab_SOURCE_DIR}/deps/event
-    URL http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.18-stable.tar.gz
+    URL http://192.168.10.252:9000/libevent-2.0.18-stable.tar.gz
     URL_MD5 aa1ce9bc0dee7b8084f6855765f2c86a
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --disable-openssl --enable-shared=no
     INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local
@@ -355,7 +355,7 @@ if (APPLE)
 else()
   ExternalProject_Add(libevent
     PREFIX ${GraphLab_SOURCE_DIR}/deps/event
-    URL http://iweb.dl.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.18-stable.tar.gz
+    URL http://192.168.10.252:9000/libevent-2.0.18-stable.tar.gz
     URL_MD5 aa1ce9bc0dee7b8084f6855765f2c86a
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --disable-openssl --enable-shared=no
     INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local
@@ -385,13 +385,17 @@ endif()
 # zookeeper ================================================================
 
 ExternalProject_Add(zookeeper
-  PREFIX ${GraphLab_SOURCE_DIR}/deps/zookeeper
-  URL http://mirror.metrocast.net/apache/zookeeper/zookeeper-3.5.1-alpha/zookeeper-3.5.1-alpha.tar.gz
-  URL_MD5 d85f9751724d3f20f792803b61c4db24
-  PATCH_COMMAND ${CMAKE_COMMAND} -E copy_directory ${GraphLab_SOURCE_DIR}/patches/zookeeper/ <SOURCE_DIR>
-  BUILD_IN_SOURCE 1
-  CONFIGURE_COMMAND ./configure --prefix=<INSTALL_DIR> --disable-shared
-  INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local)
+ PREFIX ${GraphLab_SOURCE_DIR}/deps/zookeeper
+ URL http://192.168.10.252:9000/zookeeper-3.5.5.tar.gz
+ URL_MD5 dd6b251c8c0051be008e27d397a9333b
+#  URL http://192.168.10.252:9000/zookeeper-3.5.10.tar.gz
+#  URL_MD5 82972100a0b18c8b958bba7694187c6e
+#  URL http://192.168.10.252:9000/zookeeper-3.5.1-alpha.tar.gz
+#  URL_MD5 d85f9751724d3f20f792803b61c4db24
+ PATCH_COMMAND ${CMAKE_COMMAND} -E copy_directory ${GraphLab_SOURCE_DIR}/patches/zookeeper/ <SOURCE_DIR>
+ BUILD_IN_SOURCE 1
+ CONFIGURE_COMMAND ./configure --prefix=<INSTALL_DIR> --disable-shared
+ INSTALL_DIR ${GraphLab_SOURCE_DIR}/deps/local)
 
 ## =============================================================
 # JNI =========================================================================
@@ -432,7 +436,7 @@ if(NOT NO_JAVAC)
     message(STATUS "Building libhdfs")
     ExternalProject_Add(hadoop
       PREFIX ${GraphLab_SOURCE_DIR}/deps/hadoop
-      URL https://archive.apache.org/dist/hadoop/core/hadoop-1.0.1/hadoop-1.0.1.tar.gz
+      URL http://192.168.10.252:9000/hadoop-1.0.1.tar.gz
 #      URL http://www.gtlib.gatech.edu/pub/apache/hadoop/common/hadoop-1.0.1/hadoop-1.0.1.tar.gz
       URL_MD5 e627d9b688c4de03cba8313bd0bba148
       UPDATE_COMMAND chmod +x <SOURCE_DIR>/src/c++/libhdfs/install-sh <SOURCE_DIR>/src/c++/libhdfs/configure
